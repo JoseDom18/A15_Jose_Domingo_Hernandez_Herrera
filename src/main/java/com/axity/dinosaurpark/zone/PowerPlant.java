@@ -13,7 +13,7 @@ public class PowerPlant {
     private final double consumption = config.getDouble("powerplant.consumptionPerStep", 1.5);
 
 
-    public void triggerFailure(CvsWriter writer) {
+    public void triggerFailure(CsvWriter writer) {
         double failureProbability = config.getDouble("powerplant.failureProbability", 0.05);
         if (new  Random().nextDouble() < failureProbability) {
             this.operational = false;
@@ -21,7 +21,12 @@ public class PowerPlant {
         }
     }
 
-    public void tick(Random rand, CvsWriter writer) {
+    public void forceBlackout() {
+        this.operational = false;
+        this.totalEnergy = 0.0;
+    }
+
+    public void tick(Random rand, CsvWriter writer) {
 
         if (!isOperational()) return;
 

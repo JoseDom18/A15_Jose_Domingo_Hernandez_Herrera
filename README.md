@@ -18,7 +18,8 @@ solo se regresa esta misma instancia ya creada generando una unica fuente de
 configuraciones para todo el proyecto. Para acceder a las configuraciones se crean
 métodos que nos permitan regresar las propiedades que fueron definidas en el archivo
 **src/main/resources/park.properties** que maven nos ayuda a leer.
-* Strategy: 
+* Strategy: lo usamos al definir una familia de algoritmos para asi poderlos hacer intercambiables y conseguir escribir
+un código limpio.
 
 ## Flujo de simulación
 ```mermaid
