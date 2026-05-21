@@ -13,11 +13,10 @@ public class PowerPlant {
     private final double consumption = config.getDouble("powerplant.consumptionPerStep", 1.5);
 
 
-    public void triggerFailure(CsvWriter writer) {
+    public void triggerFailure() {
         double failureProbability = config.getDouble("powerplant.failureProbability", 0.05);
         if (new  Random().nextDouble() < failureProbability) {
             this.operational = false;
-            // TODO: activar acción de registrar en cvs la falla
         }
     }
 
@@ -36,7 +35,7 @@ public class PowerPlant {
             this.totalEnergy = 0;
             this.operational = false;
         } else {
-            triggerFailure(writer);
+            triggerFailure();
         }
 
     }
@@ -49,9 +48,11 @@ public class PowerPlant {
         if (!this.isOperational()) {
 
             if (this.totalEnergy <= 0) {
-                // TODO: registrar mantenimiento
+                double cost = config.getDouble("powerplant.maintenanceCost", 200.0);
+                writer.recordExpense("MAINTENANCE", cost, "Routine power plant maintenance");
             } else {
-                // TODO: registrar reparacion
+                double cost = config.getDouble("powerplant.repairCost", 500.0);
+                writer.recordExpense("REPAIR", cost, "Unexpected power plant failure repair");
             }
 
             this.totalEnergy = config.getDouble("powerplant.initialEnergy", 100.0);

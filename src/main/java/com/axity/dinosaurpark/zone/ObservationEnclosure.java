@@ -3,6 +3,7 @@ package com.axity.dinosaurpark.zone;
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.SatisfactionSurvey;
 import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.persistence.CsvWriter;
 
 import java.util.Random;
 
@@ -40,12 +41,17 @@ public class ObservationEnclosure implements ParkZone {
 
     @Override
     public void enter(Tourist tourist) {
+
+    }
+
+    public void enter(Tourist tourist, CsvWriter writer) {
         if (hasCapacity()) {
             currentOccupancy++;
 
             String feeKey = "enclosure." + type.name().toLowerCase() + ".entryFee";
             double entryFee = config.getDouble(feeKey, 10.0);
             tourist.spend(entryFee);
+            writer.recordRevenue("ENCLOSURE_ENTRY_" + type.name(), entryFee, tourist.getId(), getName());
         }
     }
 

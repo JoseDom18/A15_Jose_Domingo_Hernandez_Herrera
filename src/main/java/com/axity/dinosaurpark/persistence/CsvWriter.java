@@ -13,6 +13,9 @@ public class CsvWriter {
     private long revenueIdCounter = 1;
     private long expenseIdCounter = 1;
 
+    private double totalRevenueAccumulated = 0.0;
+    private double totalExpenseAccumulated = 0.0;
+
     public CsvWriter() {
         this.outputDir = ParkConfig.getInstance().getString("output.directory", "output");
         initializeDirectoryAndFiles();
@@ -53,6 +56,7 @@ public class CsvWriter {
     }
 
     public void recordRevenue(String type, double amount, int touristId, String zone) {
+        this.totalRevenueAccumulated += amount;
         RevenueRecord record = new RevenueRecord(this.revenueIdCounter++, type, amount, touristId,zone, LocalDateTime.now());
         try (FileWriter fw = new FileWriter(this.outputDir + File.separator + "revenues.csv", true);
         PrintWriter pw = new PrintWriter(fw);) {
@@ -64,6 +68,7 @@ public class CsvWriter {
     }
 
     public void recordExpense(String type, double amount, String description) {
+        this.totalExpenseAccumulated += amount;
         ExpenseRecord record = new ExpenseRecord(expenseIdCounter++, type, amount, description, LocalDateTime.now());
         try (FileWriter fw = new FileWriter(this.outputDir + File.separator + "expenses.csv", true);
         PrintWriter pw = new PrintWriter(fw);) {
@@ -74,15 +79,22 @@ public class CsvWriter {
         }
     }
 
-    public void recordEvent(long step, String eventName, String description, String affectedEntities) {
-        EventRecord record = new EventRecord(step, eventName, description, affectedEntities, LocalDateTime.now());
+    public void recordEvent(EventRecord event) {
         try (FileWriter fw = new FileWriter(this.outputDir + File.separator + "events.csv", true);
              PrintWriter pw = new PrintWriter(fw);) {
-            pw.println(record.toString());
+            pw.println(event.toString());
 
         } catch (IOException e) {
             System.err.println("Error writing CSV file: " + e.getMessage());
         }
+    }
+
+    public double getTotalRevenueAccumulated() {
+        return totalRevenueAccumulated;
+    }
+
+    public double getTotalExpenseAccumulated() {
+        return totalExpenseAccumulated;
     }
 
 }

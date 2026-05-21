@@ -1,0 +1,7 @@
+step,event_name,description,affected_entities,timestamp
+12,Blackout,It occurs a blackout event in the park.,PowerPlant,2026-05-21T17:28:55.591775740
+27,DINOSAUR_ESCAPE,A dinosaur has escaped its enclosure!,Dinosaurs & Tourists,2026-05-21T17:28:55.606435512
+48,STORM,A heavy storm forced all tourists to seek shelter.,All Tourists,2026-05-21T17:28:55.624267936
+56,STORM,A heavy storm forced all tourists to seek shelter.,All Tourists,2026-05-21T17:28:55.626446372
+63,DINOSAUR_ESCAPE,A dinosaur has escaped its enclosure!,Dinosaurs & Tourists,2026-05-21T17:28:55.631027628
+65,Blackout,It occurs a blackout event in the park.,PowerPlant,2026-05-21T17:28:55.631539302

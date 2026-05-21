@@ -49,7 +49,7 @@ public class BathroomZone implements ParkZone{
             double purchaseProb = config.getDouble("bathroom.spaPurchaseProbability", 0.2);
             if (rand.nextDouble() < purchaseProb) {
                 tourist.spend(spaPrice);
-                // TODO: agregar CvsWriter
+                writer.recordRevenue("SPA_SERVICE", spaPrice, tourist.getId(), getName());
             }
 
         }
