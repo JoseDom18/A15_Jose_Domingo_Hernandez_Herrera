@@ -5,7 +5,7 @@ Repositorio creado para el laboratorio del bloque 4 del curso de Axity
 ## Herramientas usadas
 * JAVA 17
 * Maven
-* H2 y liquibase
+* H2 y liquibase (se decidió usar h2 por ser una base de datos embebida y es mejor para pruebas.)
 * JUnit 5 + Mockito + JaCoCo
 
 ## Patrones de diseño 

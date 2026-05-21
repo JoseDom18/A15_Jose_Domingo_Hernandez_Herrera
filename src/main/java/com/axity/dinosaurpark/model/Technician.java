@@ -1,5 +1,8 @@
 package com.axity.dinosaurpark.model;
 
+import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.zone.PowerPlant;
+
 public class Technician extends Worker {
 
     public Technician(String name, double dailySalary) {

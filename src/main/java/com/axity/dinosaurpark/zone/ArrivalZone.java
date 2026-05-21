@@ -1,8 +1,16 @@
 package com.axity.dinosaurpark.zone;
 
+import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.model.TouristStatus;
+import com.axity.dinosaurpark.persistence.CsvWriter;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ArrivalZone implements ParkZone{
+    ParkConfig config = ParkConfig.getInstance();
+    Queue<Tourist> waitingLine = new LinkedList<>();
 
 
     @Override
@@ -12,26 +20,39 @@ public class ArrivalZone implements ParkZone{
 
     @Override
     public boolean hasCapacity() {
-        return ;
+        return this.getMaxCapacity() > this.getCurrentOccupancy();
     }
 
     @Override
     public int getCurrentOccupancy() {
-        return 0;
+        return waitingLine.size();
     }
 
     @Override
     public int getMaxCapacity() {
-        return 0;
+        return config.getInt("arrival.maxCapacity", 30);
     }
 
     @Override
     public void enter(Tourist tourist) {
-
+        waitingLine.offer(tourist);
     }
 
     @Override
     public void exit(Tourist tourist) {
+    }
+
+    public void processBatch(int batchSize, CsvWriter writer) {
+        double ticketPrice = config.getDouble("arrival.ticketPrice", 25.0);
+        int processed = 0;
+
+        while( processed < batchSize && !waitingLine.isEmpty() ) {
+            Tourist tourist = waitingLine.poll();
+            tourist.setStatus(TouristStatus.IN_PARK);
+            tourist.spend(ticketPrice);
+            writer.recordRevenue("TICKET_SALE", ticketPrice, tourist.getId(), getName());
+            processed++;
+        }
 
     }
 }

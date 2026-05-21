@@ -1,7 +1,6 @@
-package com.axity.dinosaurpark.model;
+package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
-import com.axity.dinosaurpark.zone.ParkZone;
 
 import java.util.Random;
 
