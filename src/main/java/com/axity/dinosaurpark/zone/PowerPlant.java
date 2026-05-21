@@ -1,6 +1,7 @@
 package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
+import com.axity.dinosaurpark.persistence.CsvWriter;
 
 import java.util.Random;
 

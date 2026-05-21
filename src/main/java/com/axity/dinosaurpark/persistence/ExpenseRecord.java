@@ -1,4 +1,14 @@
 package com.axity.dinosaurpark.persistence;
 
-public record ExpenseRecord {
+import java.time.LocalDateTime;
+
+public record ExpenseRecord(long id,
+                            String type,
+                            double amount,
+                            String description,
+                            LocalDateTime timestamp) {
+    @Override
+    public String toString() {
+        return id + "," + type + "," + amount + "," + description + "," + timestamp;
+    }
 }

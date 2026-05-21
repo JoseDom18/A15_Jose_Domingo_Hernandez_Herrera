@@ -2,6 +2,7 @@ package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.persistence.CsvWriter;
 
 import java.util.HashMap;
 import java.util.Iterator;
