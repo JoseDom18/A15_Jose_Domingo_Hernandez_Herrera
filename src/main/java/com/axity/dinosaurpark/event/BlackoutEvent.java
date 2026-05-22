@@ -24,7 +24,7 @@ public class BlackoutEvent implements SimulationEvent {
 
         state.powerPlant.forceBlackout();
         double damageCost = 2000.0;
-        state.csvWriter.recordExpense("BLACKOUT_DAMAGE", damageCost, "Repairs for blackout in the park.");
+        state.databaseService.recordExpense("BLACKOUT_DAMAGE", damageCost, "Repairs for blackout in the park.");
 
     }
 

@@ -6,7 +6,8 @@ import com.axity.dinosaurpark.event.DinosaurEscapeEvent;
 import com.axity.dinosaurpark.event.SimulationEvent;
 import com.axity.dinosaurpark.event.StormEvent;
 import com.axity.dinosaurpark.model.*;
-import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.monitoring.ParkMonitor;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 import com.axity.dinosaurpark.zone.*;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class SimulationEngine {
         long seed = config.getSeed();
         this.rand = new Random(seed);
 
-        this.state.csvWriter = new CsvWriter();
+//        this.state.csvWriter = new CsvWriter();
+        this.state.databaseService = new DatabaseService();
 
         this.allEvents = List.of(new BlackoutEvent(), new DinosaurEscapeEvent(), new StormEvent());
 
@@ -71,6 +73,11 @@ public class SimulationEngine {
             state.tourists.add(t);
             arrival.enter(t);
         }
+
+        int totalVehicles = config.getInt("vehicles.total", 5);
+        for (int i = 0; i < totalVehicles; i++) {
+            state.vehicles.add(new Vehicle("Jeep " + (i+1)));
+        }
     }
 
     public void run() {
@@ -83,7 +90,7 @@ public class SimulationEngine {
             }
 
             ArrivalZone arrival = (ArrivalZone) state.zones.get(0);
-            List<Ticket> newTickets = arrival.processBatch(config.getInt("simulation.arrivalBatchSize", 5), state.csvWriter);
+            List<Ticket> newTickets = arrival.processBatch(config.getInt("simulation.arrivalBatchSize", 5), state.databaseService);
             state.soldTickets.addAll(newTickets);
 
             CentralHub hub = (CentralHub) state.zones.get(1);
@@ -92,8 +99,8 @@ public class SimulationEngine {
 
             for (Tourist tourist : state.tourists) {
                 if (tourist.getStatus() == TouristStatus.IN_PARK) {
-                    hub.visit(tourist, rand, state.csvWriter);
-                    bathroom.tryEnter(tourist, rand, state.csvWriter);
+                    hub.visit(tourist, rand, state.databaseService);
+                    bathroom.tryEnter(tourist, rand, state.databaseService);
                     enclosure.enter(tourist);
                     SatisfactionSurvey survey = enclosure.conductSurvey(tourist, rand);
                     state.surveys.add(survey);
@@ -102,23 +109,28 @@ public class SimulationEngine {
             }
 
             bathroom.tick();
-            state.powerPlant.tick(rand, state.csvWriter);
+            state.powerPlant.tick(rand, state.databaseService);
+            for (Vehicle vehicle : state.vehicles) {
+                vehicle.tick();
+            }
 
             SimulationEvent randomEvent = allEvents.get(rand.nextInt(allEvents.size()));
             if (rand.nextDouble() < randomEvent.getProbability()) {
                 randomEvent.execute(state, rand);
-                state.csvWriter.recordEvent(randomEvent.toRecord(step));
+                state.databaseService.recordEvent(randomEvent.toRecord(step));
             }
 
             for (Worker worker : state.workers) {
                 if (worker instanceof Guard guard) {
                     guard.recapturedEscapedDinosaur(state.dinosaurs);
                 } else if (worker instanceof Technician tech) {
-                    tech.repairIfNeeded(state.powerPlant, state.csvWriter);
+                    tech.repairIfNeeded(state);
                 }
             }
         }
 
-        System.out.println("Simulación finalizada. Revisa la carpeta /output para los reportes CSV.");
+//        System.out.println("Simulación finalizada. Revisa la carpeta /output para los reportes CSV.");
+        System.out.println("Simulación finalizada. Revisa la base de datos H2 en la carpeta /output.");
+        state.databaseService.shutdown();
     }
 }

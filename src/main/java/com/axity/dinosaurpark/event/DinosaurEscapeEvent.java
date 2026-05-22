@@ -43,7 +43,7 @@ public class DinosaurEscapeEvent implements SimulationEvent {
             if (!activeTourists.isEmpty()) {
                 Tourist victim = activeTourists.get(rng.nextInt(activeTourists.size()));
                 victim.setStatus(TouristStatus.ATTACKED);
-                state.csvWriter.recordExpense("MEDICAL_EMERGENCY", 1500.0, "Medical compensation for tourist attack");
+                state.databaseService.recordExpense("MEDICAL_EMERGENCY", 1500.0, "Medical compensation for tourist attack");
             }
         }
     }
@@ -55,6 +55,6 @@ public class DinosaurEscapeEvent implements SimulationEvent {
 
     @Override
     public double getProbability() {
-        return ParkConfig.getInstance().getDouble("event.escape.probability", 0.05);
+        return ParkConfig.getInstance().getDouble("event.escape.probability", 1.1);
     }
 }

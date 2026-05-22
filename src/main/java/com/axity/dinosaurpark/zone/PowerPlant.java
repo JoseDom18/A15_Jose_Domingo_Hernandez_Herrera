@@ -2,6 +2,7 @@ package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class PowerPlant {
         this.totalEnergy = 0.0;
     }
 
-    public void tick(Random rand, CsvWriter writer) {
+    public void tick(Random rand, DatabaseService writer) {
 
         if (!isOperational()) return;
 
@@ -44,7 +45,7 @@ public class PowerPlant {
         return this.operational;
     }
 
-    public void repair(CsvWriter writer) {
+    public void repair(DatabaseService writer) {
         if (!this.isOperational()) {
 
             if (this.totalEnergy <= 0) {

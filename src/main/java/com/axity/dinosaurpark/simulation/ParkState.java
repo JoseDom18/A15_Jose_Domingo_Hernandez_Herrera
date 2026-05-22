@@ -2,6 +2,7 @@ package com.axity.dinosaurpark.simulation;
 
 import com.axity.dinosaurpark.model.*;
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 import com.axity.dinosaurpark.zone.ParkZone;
 import com.axity.dinosaurpark.zone.PowerPlant;
 
@@ -13,11 +14,12 @@ public class ParkState {
     public final List<Dinosaur> dinosaurs = new ArrayList<>();
     public final List<Worker> workers = new ArrayList<>();
     public final List<ParkZone> zones = new ArrayList<>();
+    public final List<Vehicle> vehicles = new ArrayList<>();
 
     public final List<Ticket> soldTickets = new ArrayList<>();
     public final List<SatisfactionSurvey> surveys = new ArrayList<>();
 
     public PowerPlant powerPlant;
-    public CsvWriter csvWriter;
-
+//    public CsvWriter csvWriter;
+    public DatabaseService databaseService;
 }

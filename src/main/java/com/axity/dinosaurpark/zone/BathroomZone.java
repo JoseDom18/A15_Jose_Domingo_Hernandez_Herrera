@@ -3,6 +3,7 @@ package com.axity.dinosaurpark.zone;
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.Tourist;
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ public class BathroomZone implements ParkZone{
         }
     }
 
-    public void tryEnter(Tourist tourist, Random rand, CsvWriter writer) {
+    public void tryEnter(Tourist tourist, Random rand, DatabaseService writer) {
         if (hasCapacity()) {
             enter(tourist);
 

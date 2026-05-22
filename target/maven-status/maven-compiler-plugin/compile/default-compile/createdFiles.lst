@@ -4,10 +4,13 @@ com/axity/dinosaurpark/model/Dinosaur.class
 com/axity/dinosaurpark/zone/BathroomZone.class
 com/axity/dinosaurpark/zone/CentralHub.class
 com/axity/dinosaurpark/model/DinosaurStatus.class
+com/axity/dinosaurpark/event/VehicleFailureEvent.class
+com/axity/dinosaurpark/persistence/DatabaseService.class
 com/axity/dinosaurpark/model/Technician.class
 com/axity/dinosaurpark/model/SatisfactionSurvey.class
 com/axity/dinosaurpark/persistence/EventRecord.class
-com/axity/dinosaurpark/simulation/ParkMonitor.class
+com/axity/dinosaurpark/model/Vehicle.class
+com/axity/dinosaurpark/monitoring/ParkMonitor.class
 com/axity/dinosaurpark/event/StormEvent.class
 com/axity/dinosaurpark/model/CarnivoreDinosaur.class
 com/axity/dinosaurpark/zone/ExperienceType.class
@@ -19,6 +22,7 @@ com/axity/dinosaurpark/model/Ticket.class
 com/axity/dinosaurpark/persistence/RevenueRecord.class
 com/axity/dinosaurpark/zone/ArrivalZone.class
 com/axity/dinosaurpark/model/TouristStatus.class
+com/axity/dinosaurpark/model/VehicleStatus.class
 com/axity/dinosaurpark/event/BlackoutEvent.class
 com/axity/dinosaurpark/persistence/ExpenseRecord.class
 com/axity/dinosaurpark/zone/ObservationEnclosure.class

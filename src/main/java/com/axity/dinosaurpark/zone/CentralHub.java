@@ -3,6 +3,7 @@ package com.axity.dinosaurpark.zone;
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.Tourist;
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.util.Random;
 
@@ -40,7 +41,7 @@ public class CentralHub implements ParkZone {
         currentOccupancy--;
     }
 
-    public void visit(Tourist tourist, Random rng, CsvWriter writer) {
+    public void visit(Tourist tourist, Random rng, DatabaseService writer) {
         enter(tourist);
 
         double souvenirPrice = config.getDouble("hub.souvenirPrice", 15.0);

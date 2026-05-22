@@ -5,6 +5,7 @@ import com.axity.dinosaurpark.model.Ticket;
 import com.axity.dinosaurpark.model.Tourist;
 import com.axity.dinosaurpark.model.TouristStatus;
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class ArrivalZone implements ParkZone{
     public void exit(Tourist tourist) {
     }
 
-    public List<Ticket> processBatch(int batchSize, CsvWriter writer) {
+    public List<Ticket> processBatch(int batchSize, DatabaseService writer) {
         double ticketPrice = config.getDouble("arrival.ticketPrice", 25.0);
         int processed = 0;
         List<Ticket> generatedTickets = new ArrayList<>();

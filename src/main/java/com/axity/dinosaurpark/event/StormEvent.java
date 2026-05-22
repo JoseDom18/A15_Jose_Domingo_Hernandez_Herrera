@@ -30,7 +30,7 @@ public class StormEvent implements SimulationEvent {
         }
 
         double cleaningCost = 500.0;
-        state.csvWriter.recordExpense("STORM_CLEANUP", cleaningCost, "Cleaning and maintenance after storm");
+        state.databaseService.recordExpense("STORM_CLEANUP", cleaningCost, "Cleaning and maintenance after storm");
     }
 
     @Override

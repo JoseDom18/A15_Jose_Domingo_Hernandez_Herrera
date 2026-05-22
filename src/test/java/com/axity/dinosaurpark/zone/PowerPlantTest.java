@@ -1,6 +1,7 @@
 package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,13 +17,13 @@ import static org.mockito.Mockito.verify;
 class PowerPlantTest {
 
     private PowerPlant powerPlant;
-    private CsvWriter mockWriter;
+    private DatabaseService mockWriter;
     private Random mockRandom;
 
     @BeforeEach
     void setUp() {
         powerPlant = new PowerPlant();
-        mockWriter = Mockito.mock(CsvWriter.class);
+        mockWriter = Mockito.mock(DatabaseService.class);
         mockRandom = Mockito.mock(Random.class);
     }
 
