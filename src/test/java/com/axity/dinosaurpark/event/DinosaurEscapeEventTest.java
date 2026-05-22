@@ -89,6 +89,7 @@ class DinosaurEscapeEventTest {
     @Test
     void testExecuteWithDinosAndAttack() {
         CarnivoreDinosaur dino1 = new CarnivoreDinosaur("Rexy", "Tyrannosaurus Rex"); 
+        state.dinosaurs.add(dino1);
 
         Tourist tourist1 = new Tourist("Alice");
         tourist1.setStatus(TouristStatus.IN_PARK);
