@@ -42,12 +42,10 @@ class PowerPlantTest {
 
     @Test
     void testTickConsumesEnergy() {
-        // Simulamos que el random devuelve 1.0 (nunca fallará aleatoriamente)
         Mockito.when(mockRandom.nextDouble()).thenReturn(1.0);
 
         powerPlant.tick(mockRandom, mockWriter);
 
-        // 100.0 - 1.5 (consumo) = 98.5
         assertEquals(98.5, powerPlant.getTotalEnergy(), "El tick debe consumir 1.5 de energía.");
         assertTrue(powerPlant.isOperational());
     }
@@ -60,9 +58,29 @@ class PowerPlantTest {
         assertTrue(powerPlant.isOperational(), "La planta debe volver a operar tras reparación.");
         assertEquals(100.0, powerPlant.getTotalEnergy(), "La energía debe restaurarse a 100.");
 
-        // Verificamos que el mockWriter haya registrado el gasto de "MAINTENANCE"
         verify(mockWriter, times(1)).recordExpense(
                 Mockito.eq("MAINTENANCE"),
+                anyDouble(),
+                anyString()
+        );
+    }
+
+    @Test
+    void testUnexpectedFailureAndRepairLogsRepair() throws Exception {
+        java.lang.reflect.Field opField = PowerPlant.class.getDeclaredField("operational");
+        opField.setAccessible(true);
+        opField.set(powerPlant, false);
+
+        assertFalse(powerPlant.isOperational());
+        assertEquals(100.0, powerPlant.getTotalEnergy());
+
+        powerPlant.repair(mockWriter);
+
+        assertTrue(powerPlant.isOperational());
+        assertEquals(100.0, powerPlant.getTotalEnergy());
+
+        verify(mockWriter, times(1)).recordExpense(
+                Mockito.eq("REPAIR"),
                 anyDouble(),
                 anyString()
         );
