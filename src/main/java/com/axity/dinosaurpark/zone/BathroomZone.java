@@ -2,6 +2,8 @@ package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
 import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,7 +42,7 @@ public class BathroomZone implements ParkZone{
         }
     }
 
-    public void tryEnter(Tourist tourist, Random rand, CsvWriter writer) {
+    public void tryEnter(Tourist tourist, Random rand, DatabaseService writer) {
         if (hasCapacity()) {
             enter(tourist);
 
@@ -48,7 +50,7 @@ public class BathroomZone implements ParkZone{
             double purchaseProb = config.getDouble("bathroom.spaPurchaseProbability", 0.2);
             if (rand.nextDouble() < purchaseProb) {
                 tourist.spend(spaPrice);
-                // TODO: agregar CvsWriter
+                writer.recordRevenue("SPA_SERVICE", spaPrice, tourist.getId(), getName());
             }
 
         }

@@ -1,6 +1,8 @@
 package com.axity.dinosaurpark.zone;
 
 import com.axity.dinosaurpark.config.ParkConfig;
+import com.axity.dinosaurpark.persistence.CsvWriter;
+import com.axity.dinosaurpark.persistence.DatabaseService;
 
 import java.util.Random;
 
@@ -12,15 +14,19 @@ public class PowerPlant {
     private final double consumption = config.getDouble("powerplant.consumptionPerStep", 1.5);
 
 
-    public void triggerFailure(CvsWriter writer) {
+    public void triggerFailure() {
         double failureProbability = config.getDouble("powerplant.failureProbability", 0.05);
         if (new  Random().nextDouble() < failureProbability) {
             this.operational = false;
-            // TODO: activar acción de registrar en cvs la falla
         }
     }
 
-    public void tick(Random rand, CvsWriter writer) {
+    public void forceBlackout() {
+        this.operational = false;
+        this.totalEnergy = 0.0;
+    }
+
+    public void tick(Random rand, DatabaseService writer) {
 
         if (!isOperational()) return;
 
@@ -30,7 +36,7 @@ public class PowerPlant {
             this.totalEnergy = 0;
             this.operational = false;
         } else {
-            triggerFailure(writer);
+            triggerFailure();
         }
 
     }
@@ -39,19 +45,23 @@ public class PowerPlant {
         return this.operational;
     }
 
-    public void repair(CsvWriter writer) {
+    public void repair(DatabaseService writer) {
         if (!this.isOperational()) {
 
             if (this.totalEnergy <= 0) {
-                // TODO: registrar mantenimiento
+                double cost = config.getDouble("powerplant.maintenanceCost", 200.0);
+                writer.recordExpense("MAINTENANCE", cost, "Routine power plant maintenance");
             } else {
-                // TODO: registrar reparacion
+                double cost = config.getDouble("powerplant.repairCost", 500.0);
+                writer.recordExpense("REPAIR", cost, "Unexpected power plant failure repair");
             }
 
             this.totalEnergy = config.getDouble("powerplant.initialEnergy", 100.0);
             this.operational = true;
         }
+    }
 
-
+    public double getTotalEnergy() {
+        return this.totalEnergy;
     }
 }

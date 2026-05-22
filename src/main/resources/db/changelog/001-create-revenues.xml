@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="001-create-revenues" author="axity-student">
+        <createTable tableName="revenues">
+            <column name="id" type="BIGINT" autoIncrement="true"><constraints primaryKey="true"/></column>
+            <column name="type" type="VARCHAR(50)"><constraints nullable="false"/></column>
+            <column name="amount" type="DECIMAL(10,2)"><constraints nullable="false"/></column>
+            <column name="tourist_id" type="INT"/>
+            <column name="zone" type="VARCHAR(100)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
