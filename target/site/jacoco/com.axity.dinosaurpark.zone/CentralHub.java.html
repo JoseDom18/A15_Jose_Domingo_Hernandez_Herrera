@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CentralHub.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dinosaur-park</a> &gt; <a href="index.source.html" class="el_package">com.axity.dinosaurpark.zone</a> &gt; <span class="el_source">CentralHub.java</span></div><h1>CentralHub.java</h1><pre class="source lang-java linenums">package com.axity.dinosaurpark.zone;
+
+import com.axity.dinosaurpark.config.ParkConfig;
+import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.persistence.CsvWriter;
+
+import java.util.Random;
+
+<span class="nc" id="L9">public class CentralHub implements ParkZone {</span>
+<span class="nc" id="L10">    private final ParkConfig config = ParkConfig.getInstance();</span>
+<span class="nc" id="L11">    private int currentOccupancy = 0;</span>
+
+    @Override
+    public String getName() {
+<span class="nc" id="L15">        return &quot;Central Hub&quot;;</span>
+    }
+
+    @Override
+    public boolean hasCapacity() {
+<span class="nc" id="L20">        return true;</span>
+    }
+
+    @Override
+    public int getCurrentOccupancy() {
+<span class="nc" id="L25">        return currentOccupancy;</span>
+    }
+
+    @Override
+    public int getMaxCapacity() {
+<span class="nc" id="L30">        return Integer.MAX_VALUE;</span>
+    }
+
+    @Override
+    public void enter(Tourist tourist) {
+<span class="nc" id="L35">        currentOccupancy++;</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public void exit(Tourist tourist) {
+<span class="nc" id="L40">        currentOccupancy--;</span>
+<span class="nc" id="L41">    }</span>
+
+    public void visit(Tourist tourist, Random rng, CsvWriter writer) {
+<span class="nc" id="L44">        enter(tourist);</span>
+
+<span class="nc" id="L46">        double souvenirPrice = config.getDouble(&quot;hub.souvenirPrice&quot;, 15.0);</span>
+<span class="nc" id="L47">        double purchaseProb = config.getDouble(&quot;hub.souvenirPurchaseProbability&quot;, 0.4);</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (rng.nextDouble() &lt; purchaseProb) {</span>
+<span class="nc" id="L50">            tourist.spend(souvenirPrice);</span>
+<span class="nc" id="L51">            writer.recordRevenue(&quot;SOUVENIR_SALE&quot;, souvenirPrice, tourist.getId(), getName());</span>
+        }
+
+<span class="nc" id="L54">        exit(tourist);</span>
+<span class="nc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

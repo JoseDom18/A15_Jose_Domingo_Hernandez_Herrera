@@ -58,7 +58,9 @@ public class PowerPlant {
             this.totalEnergy = config.getDouble("powerplant.initialEnergy", 100.0);
             this.operational = true;
         }
+    }
 
-
+    public double getTotalEnergy() {
+        return this.totalEnergy;
     }
 }

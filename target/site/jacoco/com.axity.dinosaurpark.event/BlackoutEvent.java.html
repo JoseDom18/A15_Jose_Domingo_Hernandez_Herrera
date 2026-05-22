@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlackoutEvent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dinosaur-park</a> &gt; <a href="index.source.html" class="el_package">com.axity.dinosaurpark.event</a> &gt; <span class="el_source">BlackoutEvent.java</span></div><h1>BlackoutEvent.java</h1><pre class="source lang-java linenums">package com.axity.dinosaurpark.event;
+
+import com.axity.dinosaurpark.config.ParkConfig;
+import com.axity.dinosaurpark.persistence.EventRecord;
+import com.axity.dinosaurpark.simulation.ParkState;
+
+import java.time.LocalDateTime;
+import java.util.Random;
+
+<span class="nc" id="L10">public class BlackoutEvent implements SimulationEvent {</span>
+
+    @Override
+    public String getName() {
+<span class="nc" id="L14">        return &quot;Blackout&quot;;</span>
+    }
+
+    @Override
+    public String getDescription() {
+<span class="nc" id="L19">        return &quot;It occurs a blackout event in the park.&quot;;</span>
+    }
+
+    @Override
+    public void execute(ParkState state, Random rng) {
+
+<span class="nc" id="L25">        state.powerPlant.forceBlackout();</span>
+<span class="nc" id="L26">        double damageCost = 2000.0;</span>
+<span class="nc" id="L27">        state.csvWriter.recordExpense(&quot;BLACKOUT_DAMAGE&quot;, damageCost, &quot;Repairs for blackout in the park.&quot;);</span>
+
+<span class="nc" id="L29">    }</span>
+
+    @Override
+    public EventRecord toRecord(long step) {
+<span class="nc" id="L33">        return new EventRecord(step, this.getName(), this.getDescription(), &quot;PowerPlant&quot;, LocalDateTime.now());</span>
+    }
+
+    @Override
+    public double getProbability() {
+<span class="nc" id="L38">       return ParkConfig.getInstance().getDouble(&quot;event.blackout.probability&quot;, 0.03);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

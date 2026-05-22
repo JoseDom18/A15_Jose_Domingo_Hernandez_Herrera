@@ -17,6 +17,7 @@ public class SimulationEngine {
     private final ParkConfig config;
     private final Random rand;
     private final List<SimulationEvent> allEvents;
+    private final ParkMonitor monitor = new ParkMonitor();
 
     public SimulationEngine() {
         this.config = ParkConfig.getInstance();
@@ -27,7 +28,6 @@ public class SimulationEngine {
 
         this.state.csvWriter = new CsvWriter();
 
-        // Inicializamos los eventos disponibles
         this.allEvents = List.of(new BlackoutEvent(), new DinosaurEscapeEvent(), new StormEvent());
 
         initializePark();
@@ -78,6 +78,9 @@ public class SimulationEngine {
         System.out.println("Iniciando Simulación del Parque por " + totalSteps + " steps...");
 
         for (int step = 0; step < totalSteps; step++) {
+            if (step % 10 == 0) {
+                monitor.printStatus(step, state);
+            }
 
             ArrivalZone arrival = (ArrivalZone) state.zones.get(0);
             List<Ticket> newTickets = arrival.processBatch(config.getInt("simulation.arrivalBatchSize", 5), state.csvWriter);

@@ -7,6 +7,7 @@ com/axity/dinosaurpark/model/DinosaurStatus.class
 com/axity/dinosaurpark/model/Technician.class
 com/axity/dinosaurpark/model/SatisfactionSurvey.class
 com/axity/dinosaurpark/persistence/EventRecord.class
+com/axity/dinosaurpark/simulation/ParkMonitor.class
 com/axity/dinosaurpark/event/StormEvent.class
 com/axity/dinosaurpark/model/CarnivoreDinosaur.class
 com/axity/dinosaurpark/zone/ExperienceType.class

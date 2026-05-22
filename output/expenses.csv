@@ -1,8 +1,15 @@
 id,type,amount,description,timestamp
-1,BLACKOUT_DAMAGE,2000.0,Repairs for blackout in the park.,2026-05-21T17:28:55.588339910
-2,MAINTENANCE,200.0,Routine power plant maintenance,2026-05-21T17:28:55.592854475
-3,STORM_CLEANUP,500.0,Cleaning and maintenance after storm,2026-05-21T17:28:55.624041232
-4,STORM_CLEANUP,500.0,Cleaning and maintenance after storm,2026-05-21T17:28:55.626373283
-5,MEDICAL_EMERGENCY,1500.0,Medical compensation for tourist attack,2026-05-21T17:28:55.630912361
-6,BLACKOUT_DAMAGE,2000.0,Repairs for blackout in the park.,2026-05-21T17:28:55.631515473
-7,MAINTENANCE,200.0,Routine power plant maintenance,2026-05-21T17:28:55.631552579
+1,BLACKOUT_DAMAGE,2000.0,Repairs for blackout in the park.,2026-05-21T17:53:20.564297422
+2,MAINTENANCE,200.0,Routine power plant maintenance,2026-05-21T17:53:20.573290631
+3,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.599267177
+4,STORM_CLEANUP,500.0,Cleaning and maintenance after storm,2026-05-21T17:53:20.610218171
+5,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.612844426
+6,STORM_CLEANUP,500.0,Cleaning and maintenance after storm,2026-05-21T17:53:20.613876888
+7,MEDICAL_EMERGENCY,1500.0,Medical compensation for tourist attack,2026-05-21T17:53:20.618375154
+8,BLACKOUT_DAMAGE,2000.0,Repairs for blackout in the park.,2026-05-21T17:53:20.619056178
+9,MAINTENANCE,200.0,Routine power plant maintenance,2026-05-21T17:53:20.619119260
+10,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.623575183
+11,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.624658444
+12,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.624841525
+13,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.632186850
+14,REPAIR,500.0,Unexpected power plant failure repair,2026-05-21T17:53:20.632513139
